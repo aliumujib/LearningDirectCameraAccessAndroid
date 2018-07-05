@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">LearningToDirectlyUseTheAndroidCamera</string>
+    <string name="title_activity_camera">CameraActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="open_front_camera">Open Front Camera</string>
+    <string name="open_back_camera">Open Back Camera</string>
+    <string name="close_camera">Close Camera</string>
+</resources>

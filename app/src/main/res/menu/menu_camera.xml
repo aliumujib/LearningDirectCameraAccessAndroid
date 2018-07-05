@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="aliumujib.com.learningtodirectlyusetheandroidcamera.CameraActivity">
+    <item
+        android:id="@+id/action_front_camera"
+        android:orderInCategory="100"
+        android:title="@string/open_front_camera"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_back_camera"
+        android:orderInCategory="100"
+        android:title="@string/open_back_camera"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/close_camera"
+        android:orderInCategory="100"
+        android:title="@string/close_camera"
+        app:showAsAction="never" />
+</menu>
