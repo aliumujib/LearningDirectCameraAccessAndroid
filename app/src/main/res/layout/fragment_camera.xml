@@ -7,4 +7,13 @@
     tools:context=".CameraActivityFragment"
     tools:showIn="@layout/activity_camera">
 
+    <aliumujib.com.learningtodirectlyusetheandroidcamera.CameraPreview
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/camera_preview"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </android.support.constraint.ConstraintLayout>
