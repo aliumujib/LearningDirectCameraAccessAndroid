@@ -85,14 +85,14 @@ class CameraPreview : SurfaceView, SurfaceHolder.Callback {
         val deviceOrientation = getDeviceOrientation()
 
         when (cameraInfo.facing) {
-            Camera.CameraInfo.CAMERA_FACING_FRONT -> {
+            Camera.CameraInfo.CAMERA_FACING_BACK -> {
                 temp = cameraInfo.orientation - deviceOrientation + DEGREES_IN_A_CIRCLE
                 previewOrientation = temp % DEGREES_IN_A_CIRCLE
             }
 
-            Camera.CameraInfo.CAMERA_FACING_BACK -> {
+            Camera.CameraInfo.CAMERA_FACING_FRONT -> {
                 temp = (cameraInfo.orientation + deviceOrientation) % DEGREES_IN_A_CIRCLE
-                previewOrientation = (DEGREES_IN_A_CIRCLE - temp) * DEGREES_IN_A_CIRCLE
+                previewOrientation = (DEGREES_IN_A_CIRCLE - temp) % DEGREES_IN_A_CIRCLE
             }
 
         }
