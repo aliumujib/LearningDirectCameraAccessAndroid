@@ -1,17 +1,25 @@
 package aliumujib.com.learningtodirectlyusetheandroidcamera
 
 import android.Manifest
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.hardware.Camera
+import android.net.Uri
 import android.support.v4.app.Fragment
 import android.os.Bundle
+import android.os.Environment
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.util.Log
 import android.view.*
 import kotlinx.android.synthetic.main.fragment_camera.*
+import java.io.BufferedOutputStream
+import java.io.File
+import java.io.FileOutputStream
+import java.io.OutputStream
 
 
 @Suppress("DEPRECATION")
@@ -60,7 +68,36 @@ class CameraActivityFragment() : Fragment() {
             showCameraUnavailableDialog()
         }
 
+        snap_photo.setOnClickListener {
+            takePhoto()
+        }
+
         setHasOptionsMenu(true)
+    }
+
+    private fun takePhoto() {
+        selectedCamera!!.takePicture(null, null, object : Camera.PictureCallback {
+            override fun onPictureTaken(p0: ByteArray?, p1: Camera?) {
+
+                val file = CameraHelper.generateTimeStampPhotoFile()
+
+                try {
+                    var outputStream: OutputStream = BufferedOutputStream(FileOutputStream(file))
+                    outputStream.write(p0)
+                    outputStream.flush()
+                    outputStream.close()
+
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+
+
+                activity!!.sendBroadcast(Intent(Intent.ACTION_MEDIA_MOUNTED,
+                        Uri.parse("file:///${Environment.getExternalStorageDirectory()}")))
+
+                selectedCamera!!.startPreview()
+            }
+        })
     }
 
     private fun requestCameraPermissions() {
@@ -178,6 +215,9 @@ class CameraActivityFragment() : Fragment() {
         if (selectedCameraId != INVALID_CAMERA_ID) {
             try {
                 selectedCamera = Camera.open(selectedCameraId)
+                val params = selectedCamera!!.parameters
+                params.focusMode = Camera.Parameters.FOCUS_MODE_AUTO
+                selectedCamera!!.parameters = params
                 camera_preview.startCamera(selectedCamera, selectedCameraId)
             } catch (e: Exception) {
                 Log.d(TAG, "Error opening camera", e)
